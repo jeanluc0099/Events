@@ -1,1 +1,53 @@
+<!doctype html>
+<button type="submit" class="btn primary">Ajouter l'événement</button>
+<button type="button" id="clearForm" class="btn muted">Réinitialiser</button>
+</div>
+</form>
+</section>
 
+
+<section class="card search-card">
+<div class="row between">
+<input id="search" placeholder="Recherche (titre, localité)..." class="search-input" />
+<select id="filterCity" class="select-city">
+<option value="">Toutes les villes</option>
+</select>
+<button id="clearBtn" class="btn muted">Effacer</button>
+</div>
+</section>
+
+
+<section class="card list-card">
+<div class="card-head">
+<h2>Événements en cours</h2>
+<div id="nowCount" class="small muted"></div>
+</div>
+<div id="nowList"></div>
+</section>
+
+
+<section class="card list-card">
+<div class="card-head">
+<h2>Événements à venir</h2>
+<div id="upCount" class="small muted"></div>
+</div>
+<div id="upList"></div>
+</section>
+
+
+<p class="muted center">Données stockées localement sur ce navigateur. Migration vers un backend possible ultérieurement.</p>
+
+
+</main>
+
+
+<footer class="site-footer">
+<div class="container">
+<small>© Events T — Prototype • Développé par Jean‑Luc</small>
+</div>
+</footer>
+
+
+<script src="app.js"></script>
+</body>
+</html>

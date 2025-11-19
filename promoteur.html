@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promoteur - Ajouter Événements</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <header><h1>Interface Promoteur</h1></header>
+  <main>
+    <section id="form-section">
+      <h2>Ajouter un événement</h2>
+      <form id="event-form">
+        <input type="text" id="title" placeholder="Titre de l'événement" required>
+        <input type="text" id="location" placeholder="Adresse ou ville" required>
+        <input type="date" id="date" required>
+        <textarea id="description" placeholder="Description"></textarea>
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
+
+    <section id="map-section">
+      <h2>Carte des événements</h2>
+      <div id="map"></div>
+    </section>
+
+    <section id="list-section">
+      <h2>Liste des événements</h2>
+      <div id="events"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+  <script src="promoteur.js"></script>
+</body>
+</html>

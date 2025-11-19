@@ -51,3 +51,4 @@ render();
 // optional clear button
 const clearBtn = document.getElementById('clearBtn');
 if(clearBtn) clearBtn.addEventListener(
+

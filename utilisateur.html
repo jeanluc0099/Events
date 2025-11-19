@@ -3,39 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Utilisateur - Événements autour de vous</title>
+  <title>Version Utilisateur</title>
+
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="leaflet.css">
+  <script src="leaflet.js"></script>
+  <script src="common.js"></script>
 </head>
+
 <body>
+  <button class="menu-btn" onclick="location.href='index.html'">Menu</button>
+
   <header>
     <h1>Événements autour de vous</h1>
   </header>
 
-  <main>
-    <section id="controls">
-      <label for="rayon-select">Rayon (km) :</label>
-      <select id="rayon-select">
-        <option value="10">10 km</option>
-        <option value="50">50 km</option>
-        <option value="100">100 km</option>
-      </select>
-      <button onclick="window.location.href='index.html'">Menu principal</button>
-    </section>
+  <label>Rayon : 
+    <select id="rayon">
+      <option value="10">10 km</option>
+      <option value="50">50 km</option>
+      <option value="100">100 km</option>
+    </select>
+  </label>
 
-    <section id="map-section">
-      <h2>Carte des événements</h2>
-      <div id="map"></div>
-    </section>
+  <div id="map"></div>
 
-    <section id="list-section">
-      <h2>Événements du jour</h2>
-      <div id="events"></div>
-    </section>
-  </main>
+  <div id="events"></div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="app.js"></script>
-  <script src="utilisateur_defaut.js"></script>
+  <script src="utilisateur.js"></script>
 </body>
 </html>

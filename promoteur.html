@@ -3,41 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promoteur - Gestion des événements</title>
+  <title>Espace Promoteur</title>
+
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="leaflet.css">
+  <script src="leaflet.js"></script>
+  <script src="common.js"></script>
 </head>
+
 <body>
+  <button class="menu-btn" onclick="location.href='index.html'">Menu</button>
+
   <header>
-    <h1>Interface Promoteur</h1>
+    <h1>Espace Promoteur</h1>
   </header>
 
-  <main>
-    <section id="form-section">
-      <h2>Ajouter un événement</h2>
-      <form id="event-form">
-        <input type="text" id="title" placeholder="Titre de l'événement" required>
-        <input type="text" id="location" placeholder="Adresse ou ville" required>
-        <input type="date" id="date" required>
-        <textarea id="description" placeholder="Description"></textarea>
-        <button type="submit">Ajouter</button>
-      </form>
-      <button onclick="window.location.href='index.html'">Menu principal</button>
-    </section>
+  <form id="event-form">
+    <input type="text" id="title" placeholder="Titre" required>
+    <input type="text" id="location" placeholder="Lieu" required>
+    <input type="date" id="date" required>
+    <textarea id="description" placeholder="Description"></textarea>
+    <button type="submit" class="btn">Ajouter</button>
+  </form>
 
-    <section id="map-section">
-      <h2>Carte des événements</h2>
-      <div id="map"></div>
-    </section>
+  <div id="map"></div>
 
-    <section id="list-section">
-      <h2>Liste des événements</h2>
-      <div id="events"></div>
-    </section>
-  </main>
+  <h2>Vos événements</h2>
+  <div id="events"></div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="app.js"></script>
-  <script src="promoteur_defaut.js"></script>
+  <script src="promoteur.js"></script>
 </body>
 </html>

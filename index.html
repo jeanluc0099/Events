@@ -1,112 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Events Finder — Utilisateur & Promoteur</title>
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-  <!-- App CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Événements - Utilisateur</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 </head>
 <body>
-  <header>
-    <h1>🎉 Events Finder</h1>
-    <button id="menuBtn" class="menu-btn">☰ Menu</button>
-  </header>
 
-  <nav id="menu" class="menu">
-    <button data-view="user" class="nav-btn">👤 Utilisateur (par défaut)</button>
-    <button data-view="promoter" class="nav-btn">🛠 Promoteur</button>
-    <button data-view="messages" class="nav-btn">✉️ Messages</button>
-  </nav>
+  <h1>Événements en cours et à venir</h1>
 
-  <!-- ==========================
-       VUE UTILISATEUR (par défaut)
-       ========================== -->
-  <section id="view-user" class="view active">
-    <div class="controls">
-      <label for="radius">Rayon :</label>
-      <select id="radius">
-        <option value="10">10 km</option>
-        <option value="50">50 km</option>
-        <option value="100">100 km</option>
-      </select>
-      <button id="refreshBtn" class="small-btn">↻ Actualiser position</button>
-    </div>
+  <div id="events-list"></div>
 
-    <div id="map-user" class="map"></div>
+  <div id="map"></div>
 
-    <h2>Événements du jour</h2>
-    <div id="events-user" class="list"></div>
-
-    <!-- Modal contact (affiché depuis l'interface utilisateur uniquement) -->
-    <div id="contactModal" class="modal hidden">
-      <div class="modal-inner">
-        <h3>Contacter le promoteur</h3>
-        <div id="contactInfo"></div>
-        <form id="contactForm">
-          <input id="contactName" placeholder="Votre nom" required />
-          <input id="contactEmail" type="email" placeholder="Votre email" required />
-          <textarea id="contactMessage" placeholder="Votre message" required></textarea>
-          <div class="modal-actions">
-            <button type="submit" class="btn">Envoyer</button>
-            <button type="button" id="closeContact" class="btn ghost">Annuler</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================
-       VUE PROMOTEUR
-       ========================== -->
-  <section id="view-promoter" class="view">
-    <div class="promoter-top">
-      <label>Identifiant promoteur (nom ou email) :</label>
-      <input id="promoterId" placeholder="ex: dj.neptune@example.com" />
-      <button id="promoterLogin" class="small-btn">Se connecter</button>
-    </div>
-
-    <div class="promoter-main">
-      <div class="form-card">
-        <h3>Ajouter un événement</h3>
-        <input id="evTitle" placeholder="Titre" />
-        <input id="evDate" type="date" />
-        <textarea id="evDesc" placeholder="Description (public)"></textarea>
-        <input id="evContact" placeholder="Contact promoteur (email ou téléphone)" />
-        <p class="muted">Choisir un lieu : clique sur la carte ci-dessous ou entre lat / lon</p>
-        <div class="coords-row">
-          <input id="evLat" placeholder="Latitude" />
-          <input id="evLng" placeholder="Longitude" />
-        </div>
-        <button id="addEvBtn" class="btn">Ajouter l'événement</button>
-      </div>
-
-      <div class="map-card">
-        <h4>Carte (cliquez pour sélectionner un lieu)</h4>
-        <div id="map-promoter" class="map"></div>
-      </div>
-    </div>
-
-    <h3>Vos événements</h3>
-    <div id="events-promoter" class="list"></div>
-  </section>
-
-  <!-- ==========================
-       VUE MESSAGES (tous les messages envoyés)
-       ========================== -->
-  <section id="view-messages" class="view">
-    <h2>Messages envoyés (prot.)</h2>
-    <div id="messagesList" class="list"></div>
-  </section>
-
-  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- App logic -->
+  <script src="firebase-config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

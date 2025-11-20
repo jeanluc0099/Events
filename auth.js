@@ -1,52 +1,29 @@
-// INSCRIPTION
-if (document.getElementById("registerForm")) {
-  document.getElementById("registerForm").addEventListener("submit", e => {
-    e.preventDefault();
+import {
+  auth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "./firebase.js";
 
-    const email = document.getElementById("regEmail").value;
-    const pass = document.getElementById("regPassword").value;
+const loginBtn = document.getElementById("loginBtn");
 
-    auth.createUserWithEmailAndPassword(email, pass)
-      .then(() => {
-        alert("Compte créé !");
-        window.location.href = "promoteur.html";
-      })
-      .catch(err => alert(err.message));
-  });
-}
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-// CONNEXION
-if (document.getElementById("loginForm")) {
-  document.getElementById("loginForm").addEventListener("submit", e => {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const pass = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, pass)
+    signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         window.location.href = "promoteur.html";
       })
-      .catch(err => alert(err.message));
+      .catch(err => {
+        alert("Erreur de connexion : " + err.message);
+      });
   });
 }
 
-// PROTECTION DES PAGES
-auth.onAuthStateChanged(user => {
-  const protectedPages = ["promoteur.html"];
-
-  if (protectedPages.includes(location.pathname.replace("/", ""))) {
-    if (!user) {
-      window.location.href = "login.html";
-    }
+// Vérifier session promoteur
+onAuthStateChanged(auth, (user) => {
+  if (document.body.dataset.page === "promoteur") {
+    if (!user) window.location.href = "login.html";
   }
 });
-
-// DÉCONNEXION
-if (document.getElementById("logoutBtn")) {
-  document.getElementById("logoutBtn").onclick = () => {
-    auth.signOut().then(() => {
-      window.location.href = "login.html";
-    });
-  };
-}

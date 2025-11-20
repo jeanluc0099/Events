@@ -1,31 +1,29 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Espace Promoteur</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-</head>
-<body>
-
-  <h1>Créer un événement</h1>
-
-  <button id="logoutBtn">Déconnexion</button>
-
-  <form id="eventForm">
-    <input type="text" id="title" placeholder="Titre de l'événement" required>
-    <input type="text" id="date" placeholder="Date (AAAA-MM-JJ)" required>
-    <textarea id="description" placeholder="Description" required></textarea>
-
-    <p>Cliquez sur la carte pour définir la localisation :</p>
-    <div id="mapPromoteur"></div>
-
-    <button type="submit">Créer l'événement</button>
-  </form>
-
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="auth.js"></script>
-  <script src="promoteur.js"></script>
+
+  <script type="module" src="js/promoteur.js" defer></script>
+</head>
+
+<body data-page="promoteur">
+
+  <h2>Ajouter un événement</h2>
+
+  <input id="title" placeholder="Titre">
+  <textarea id="description" placeholder="Description"></textarea>
+  <input id="date" type="date">
+
+  <h3>📍 Cliquez sur la carte pour définir la localisation :</h3>
+  <div id="map"></div>
+
+  <button id="addEventBtn">Ajouter</button>
+  <button id="logout">Déconnexion</button>
+
 </body>
 </html>

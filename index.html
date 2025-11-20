@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Events App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Events — Utilisateurs</title>
+
   <link rel="stylesheet" href="css/style.css">
-  <script type="module" src="js/events.js" defer></script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
+
 <body>
-  <h1>Événements disponibles</h1>
-  <div id="eventsList"></div>
+
+<header class="topbar">
+  <h2>Événements autour de vous</h2>
+  <a href="login.html">
+    <button class="small">Menu Promoteur</button>
+  </a>
+</header>
+
+<main class="container">
+
+  <!-- CONTROLES -->
+  <section class="controls">
+    <label for="radiusSelect">Rayon :</label>
+    <select id="radiusSelect">
+      <option value="10">10 km</option>
+      <option value="50">50 km</option>
+      <option value="100">100 km</option>
+    </select>
+
+    <button id="refreshBtn" class="small">🔄 Rafraîchir</button>
+  </section>
+
+  <!-- CARTE -->
+  <section class="card">
+    <div id="map" style="height: 350px; border-radius: 12px;"></div>
+  </section>
+
+  <!-- LISTE D'ÉVÉNEMENTS -->
+  <section class="card">
+    <h3>Événements à proximité</h3>
+    <div id="events-list"></div>
+  </section>
+
+</main>
+
+<!-- Script utilisateur -->
+<script type="module" src="js/app.js"></script>
+
 </body>
 </html>

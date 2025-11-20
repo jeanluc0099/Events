@@ -1,40 +1,50 @@
-let selectedLat = null;
-let selectedLng = null;
+import { auth, signOut, db, addDoc, collection } from "./firebase.js";
 
-// Carte
-const map = L.map("mapPromoteur").setView([6.37, 2.39], 12);
+let latitude = null;
+let longitude = null;
+
+// --- Logout promoteur ---
+document.getElementById("logout").onclick = () => {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
+};
+
+// --- MAP CLICK ---
+const map = L.map("map").setView([6.37, 2.39], 13);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-let marker;
+let marker = null;
 
-map.on("click", function (e) {
-  selectedLat = e.latlng.lat;
-  selectedLng = e.latlng.lng;
+map.on("click", (e) => {
+  latitude = e.latlng.lat;
+  longitude = e.latlng.lng;
 
   if (marker) marker.remove();
-  marker = L.marker([selectedLat, selectedLng]).addTo(map);
+
+  marker = L.marker([latitude, longitude]).addTo(map);
 });
 
-// Formulaire
-document.getElementById("eventForm").addEventListener("submit", async e => {
-  e.preventDefault();
+// --- Ajouter événement ---
+document.getElementById("addEventBtn").onclick = async () => {
+  const title = document.getElementById("title").value.trim();
+  const description = document.getElementById("description").value.trim();
+  const date = document.getElementById("date").value.trim();
 
-  if (!selectedLat || !selectedLng) {
-    alert("Veuillez sélectionner la localisation sur la carte");
+  if (!latitude || !longitude) {
+    alert("Cliquez sur la carte pour définir la localisation.");
     return;
   }
 
-  await db.collection("events").add({
-    title: document.getElementById("title").value,
-    date: document.getElementById("date").value,
-    description: document.getElementById("description").value,
-    lat: selectedLat,
-    lng: selectedLng,
-    promoterEmail: auth.currentUser.email,
-    createdAt: Date.now()
+  await addDoc(collection(db, "events"), {
+    title,
+    description,
+    date,
+    lat: latitude,
+    lng: longitude,
+    promoteurEmail: auth.currentUser.email
   });
 
-  alert("Événement créé !");
-  document.getElementById("eventForm").reset();
-});
+  alert("Événement ajouté !");
+};

@@ -1,29 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Espace Promoteur</title>
+
   <link rel="stylesheet" href="css/style.css">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <script type="module" src="js/promoteur.js" defer></script>
 </head>
 
-<body data-page="promoteur">
+<body>
 
-  <h2>Ajouter un événement</h2>
+<header class="topbar">
+  <h2>Espace Promoteur</h2>
+  <button id="logoutBtn" class="small red">Déconnexion</button>
+</header>
 
-  <input id="title" placeholder="Titre">
-  <textarea id="description" placeholder="Description"></textarea>
-  <input id="date" type="date">
+<main class="container">
+  
+  <!-- AJOUT D'ÉVÉNEMENT -->
+  <section class="card">
+    <h3>Ajouter un événement</h3>
 
-  <h3>📍 Cliquez sur la carte pour définir la localisation :</h3>
-  <div id="map"></div>
+    <form id="addEventForm">
 
-  <button id="addEventBtn">Ajouter</button>
-  <button id="logout">Déconnexion</button>
+      <input id="title" type="text" placeholder="Titre de l'événement" required />
+
+      <input id="date" type="date" required />
+
+      <textarea id="description" placeholder="Description (optionnel)"></textarea>
+
+      <input id="contact" type="text" placeholder="Contact (email ou téléphone)" />
+
+      <p class="muted">Cliquez sur la carte pour choisir la localisation :</p>
+      <p id="coordDisplay" class="muted">Aucune localisation sélectionnée</p>
+
+      <div id="promoterMap" style="height: 300px; border-radius: 12px;"></div>
+
+      <button type="submit" class="primary full">Ajouter l'événement</button>
+
+    </form>
+  </section>
+
+  <!-- LISTE DES ÉVÉNEMENTS DU PROMOTEUR -->
+  <section class="card">
+    <h3>Mes événements</h3>
+    <div id="promoterEventList"></div>
+  </section>
+
+</main>
+
+<script type="module" src="js/promoteur.js"></script>
 
 </body>
 </html>

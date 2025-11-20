@@ -1,63 +1,41 @@
 body {
-  margin: 0;
-  padding: 20px;
+  background: #9dd6ff;
   font-family: Arial, sans-serif;
-  background: linear-gradient(#86c5f4, #bfe1ff);
   text-align: center;
-}
-
-h1, h2 {
-  animation: fadeIn 1s ease-in-out;
-  color: #003f7d;
-}
-
-form {
-  background: white;
   padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 350px;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px #0003;
 }
 
-input, textarea, button {
-  width: 100%;
-  margin: 8px 0;
-  padding: 12px;
+input, textarea {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 8px;
   border-radius: 8px;
   border: none;
 }
 
 button {
-  background: #005dbf;
+  padding: 10px 20px;
+  margin: 10px;
+  background: #004f9e;
   color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  background: #003f7d;
-}
-
-#map, #mapPromoteur {
-  height: 300px;
-  width: 100%;
-  margin-top: 15px;
-  border-radius: 10px;
 }
 
 .event-card {
-  background: white;
-  margin: 12px auto;
-  width: 90%;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: left;
-  box-shadow: 0 4px 8px #0003;
+  background:white;
+  width:80%;
+  margin:20px auto;
+  padding:15px;
+  border-radius:10px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+#map {
+  width: 90%;
+  height: 300px;
+  margin: 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
 }

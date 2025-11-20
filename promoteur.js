@@ -1,50 +1,123 @@
-import { auth, signOut, db, addDoc, collection } from "./firebase.js";
+// promoteur.js
+import {
+    auth,
+    signOut,
+    db,
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc
+} from "./firebase.js";
 
-let latitude = null;
-let longitude = null;
+document.addEventListener('DOMContentLoaded', async () => {
 
-// --- Logout promoteur ---
-document.getElementById("logout").onclick = () => {
-  signOut(auth).then(() => {
-    window.location.href = "login.html";
-  });
-};
+    const logoutBtn = document.getElementById('logoutBtn');
+    const addEventForm = document.getElementById('addEventForm');
+    const eventList = document.getElementById('promoterEventList');
+    const coordDisplay = document.getElementById('coordDisplay');
 
-// --- MAP CLICK ---
-const map = L.map("map").setView([6.37, 2.39], 13);
+    let selectedLat = null;
+    let selectedLng = null;
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+    // Init map for event location
+    const map = L.map('promoterMap').setView([6.37, 2.39], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-let marker = null;
+    let marker = null;
 
-map.on("click", (e) => {
-  latitude = e.latlng.lat;
-  longitude = e.latlng.lng;
+    // Click to choose location
+    map.on('click', (e) => {
+        selectedLat = e.latlng.lat;
+        selectedLng = e.latlng.lng;
 
-  if (marker) marker.remove();
+        coordDisplay.textContent = 
+            `Lat: ${selectedLat.toFixed(5)} | Lng: ${selectedLng.toFixed(5)}`;
 
-  marker = L.marker([latitude, longitude]).addTo(map);
+        if (marker) map.removeLayer(marker);
+
+        marker = L.marker([selectedLat, selectedLng]).addTo(map);
+    });
+
+    // Load promoter events
+    async function loadPromoterEvents() {
+        eventList.innerHTML = "<p class='muted'>Chargement…</p>";
+
+        const snapshot = await getDocs(collection(db, "events"));
+        eventList.innerHTML = "";
+
+        snapshot.forEach(d => {
+            const ev = d.data();
+
+            if (ev.promoteurEmail === auth.currentUser.email) {
+                const item = document.createElement("div");
+                item.className = "event-card";
+
+                item.innerHTML = `
+                    <h3>${ev.title}</h3>
+                    <p class="muted">${ev.date}</p>
+                    <p>${ev.description || ""}</p>
+                    <button class="small deleteBtn">🗑 Supprimer</button>
+                `;
+
+                item.querySelector(".deleteBtn").addEventListener('click', async () => {
+                    await deleteDoc(doc(db, "events", d.id));
+                    loadPromoterEvents();
+                });
+
+                eventList.appendChild(item);
+            }
+        });
+    }
+
+    // Add Event
+    addEventForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const title = document.getElementById('title').value.trim();
+        const date = document.getElementById('date').value;
+        const description = document.getElementById('description').value.trim();
+        const contact = document.getElementById('contact').value.trim();
+
+        if (!selectedLat || !selectedLng) {
+            alert("Cliquez sur la carte pour définir la localisation.");
+            return;
+        }
+
+        await addDoc(collection(db, "events"), {
+            title,
+            date,
+            description,
+            promoterContact: contact,
+            promoteurEmail: auth.currentUser.email,
+            lat: selectedLat,
+            lng: selectedLng
+        });
+
+        alert("Événement ajouté !");
+        addEventForm.reset();
+        coordDisplay.textContent = "Aucune localisation sélectionnée";
+        selectedLat = null;
+        selectedLng = null;
+
+        if (marker) map.removeLayer(marker);
+
+        loadPromoterEvents();
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = "login.html";
+    });
+
+    // Require login
+    auth.onAuthStateChanged((user) => {
+        if (!user) {
+            window.location.href = "login.html";
+        } else {
+            loadPromoterEvents();
+        }
+    });
+
 });
-
-// --- Ajouter événement ---
-document.getElementById("addEventBtn").onclick = async () => {
-  const title = document.getElementById("title").value.trim();
-  const description = document.getElementById("description").value.trim();
-  const date = document.getElementById("date").value.trim();
-
-  if (!latitude || !longitude) {
-    alert("Cliquez sur la carte pour définir la localisation.");
-    return;
-  }
-
-  await addDoc(collection(db, "events"), {
-    title,
-    description,
-    date,
-    lat: latitude,
-    lng: longitude,
-    promoteurEmail: auth.currentUser.email
-  });
-
-  alert("Événement ajouté !");
-};

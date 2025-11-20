@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Connexion Promoteur</title>
   <link rel="stylesheet" href="css/style.css">
-  <script type="module" src="js/auth.js" defer></script>
 </head>
 <body>
-  <h2>Connexion Promoteur</h2>
 
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Mot de passe">
+  <main class="container centered">
+    <h1>Espace Promoteur</h1>
 
-  <button id="loginBtn">Se connecter</button>
+    <form id="loginForm" class="auth-form">
+      <input id="email" type="email" placeholder="Email" required />
+      <input id="password" type="password" placeholder="Mot de passe" required />
+      <button type="submit" class="primary">Se connecter</button>
+    </form>
+
+    <p>Pas de compte ? <a href="register.html">Créer un compte</a></p>
+  </main>
+
+  <script type="module">
+    import { 
+      auth,
+      signInWithEmailAndPassword
+    } from "./js/firebase.js";
+
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Connexion réussie !");
+        window.location.href = "promoteur.html";
+      } catch (err) {
+        console.error(err);
+        alert("Erreur : " + err.message);
+      }
+    });
+  </script>
 </body>
 </html>

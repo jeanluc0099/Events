@@ -1,20 +1,24 @@
-// Import Firebase SDKs
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+// firebase-config.js
+// Firebase V10+ (modular) — configuration & exports
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    signOut 
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { 
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-// Your Firebase configuration
+// Your Firebase config (provided)
 const firebaseConfig = {
   apiKey: "AIzaSyAWX2UN5whFp1GXKhQpD6HFTZx2sfCSLfo",
   authDomain: "events-app-754f4.firebaseapp.com",
@@ -25,17 +29,24 @@ const firebaseConfig = {
   measurementId: "G-2NYNMFR16Q"
 };
 
-// Initialize Firebase
+// Init
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-// EXPORTS
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Services
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Export for usage in other modules
 export {
+  auth,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
+  createUserWithEmailAndPassword,
   signOut,
+  db,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  deleteDoc,
+  doc
 };

@@ -1,1 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Events — Événements autour de vous</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Événements autour de vous</h1>
+  </header>
 
+  <main id="app">
+    <!-- Zone de filtrage -->
+    <div>
+      <label for="rayon">Rayon :</label>
+      <select id="rayon">
+         <option>5 km</option>
+         <option selected>10 km</option>
+         <option>25 km</option>
+      </select>
+      <button id="refreshBtn">Rafraîchir</button>
+    </div>
+
+    <!-- Liste événements -->
+    <section id="eventsList">
+      <h2>Événements à proximité</h2>
+      <div id="eventsContainer"></div>
+    </section>
+  </main>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>

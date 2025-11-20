@@ -1,0 +1,7 @@
+/* css/style.css */
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 1.5rem;
+}
+h1 { font-size: 2rem; margin-bottom: 1rem; }
+#eventsContainer { margin-top: 2rem; }
